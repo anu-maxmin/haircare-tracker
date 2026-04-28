@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FAF6F1;
+  font-family: 'DM Sans', sans-serif;
+  color: #2C2C2C;
+}
+
+:root {
+  --cream: #FAF6F1;
+  --mink: #C4A882;
+  --bark: #8B6F4E;
+  --moss: #5C6B4A;
+  --blush: #E8C5B0;
+  --charcoal: #2C2C2C;
+  --sage: #A3B899;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FAF6F1; }
+::-webkit-scrollbar-thumb { background: #C4A882; border-radius: 3px; }
+
+/* Calendar day hover */
+.cal-day {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cal-day:hover {
+  background-color: #E8C5B0;
+  transform: scale(1.05);
+}
+
+/* Checkbox custom style */
+.custom-check {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #C4A882;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.custom-check:checked {
+  background-color: #5C6B4A;
+  border-color: #5C6B4A;
+}
+.custom-check:checked::after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Toast notification */
+.toast {
+  animation: slideIn 0.4s ease, fadeOut 0.4s ease 3.6s forwards;
+}
+@keyframes slideIn {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

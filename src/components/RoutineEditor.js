@@ -1,4 +1,4 @@
-// components/RoutineEditor.js
+// src/components/RoutineEditor.js
 import { useState } from 'react';
 import { DAYS } from '../lib/utils';
 
@@ -16,10 +16,7 @@ export default function RoutineEditor({ weeklyRoutine, onSave, onClose }) {
 
   function addStep(dayIdx) {
     const updated = { ...routine };
-    updated[dayIdx].steps.push({
-      id: `step-${Date.now()}`,
-      text: '',
-    });
+    updated[dayIdx].steps.push({ id: `step-${Date.now()}`, text: '' });
     setRoutine(updated);
   }
 
@@ -49,7 +46,12 @@ export default function RoutineEditor({ weeklyRoutine, onSave, onClose }) {
               <h2 className="font-display text-2xl text-charcoal">Edit Weekly Routine</h2>
               <p className="text-sm text-bark/70 mt-0.5">This cycle repeats every week</p>
             </div>
-            <button onClick={onClose} className="w-8 h-8 rounded-full bg-blush/50 flex items-center justify-center text-bark hover:bg-blush transition-colors text-lg">×</button>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-blush/50 flex items-center justify-center text-bark hover:bg-blush transition-colors text-lg"
+            >
+              ×
+            </button>
           </div>
         </div>
 
@@ -60,9 +62,7 @@ export default function RoutineEditor({ weeklyRoutine, onSave, onClose }) {
               key={i}
               onClick={() => setActiveDay(i)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
-                activeDay === i
-                  ? 'bg-bark text-white'
-                  : 'text-bark hover:bg-blush/50'
+                activeDay === i ? 'bg-bark text-white' : 'text-bark hover:bg-blush/50'
               }`}
             >
               {day.slice(0, 3)}
@@ -75,17 +75,29 @@ export default function RoutineEditor({ weeklyRoutine, onSave, onClose }) {
           <div className="space-y-3">
             {routine[activeDay].steps.map((step, idx) => (
               <div key={step.id} className="flex items-start gap-2 group animate-slide-up">
-                <span className="mt-2.5 text-xs font-bold text-mink w-5 text-right flex-shrink-0">{idx + 1}</span>
+                <span className="mt-2.5 text-xs font-bold text-mink w-5 text-right flex-shrink-0">
+                  {idx + 1}
+                </span>
                 <input
                   type="text"
                   value={step.text}
-                  onChange={(e) => updateStep(activeDay, idx, e.target.value)}
+                  onChange={e => updateStep(activeDay, idx, e.target.value)}
                   placeholder="Describe this step..."
                   className="flex-1 px-3 py-2 rounded-xl border border-blush bg-white text-sm text-charcoal placeholder-bark/40 focus:outline-none focus:ring-2 focus:ring-mink/60"
                 />
                 <div className="flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => moveStep(activeDay, idx, -1)} className="text-bark/50 hover:text-bark text-xs leading-none">▲</button>
-                  <button onClick={() => moveStep(activeDay, idx, 1)} className="text-bark/50 hover:text-bark text-xs leading-none">▼</button>
+                  <button
+                    onClick={() => moveStep(activeDay, idx, -1)}
+                    className="text-bark/50 hover:text-bark text-xs leading-none"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    onClick={() => moveStep(activeDay, idx, 1)}
+                    className="text-bark/50 hover:text-bark text-xs leading-none"
+                  >
+                    ▼
+                  </button>
                 </div>
                 <button
                   onClick={() => removeStep(activeDay, idx)}
@@ -104,14 +116,21 @@ export default function RoutineEditor({ weeklyRoutine, onSave, onClose }) {
             </button>
 
             {routine[activeDay].steps.length === 0 && (
-              <p className="text-center text-bark/40 text-sm py-4">No steps yet — this is a rest day.</p>
+              <p className="text-center text-bark/40 text-sm py-4">
+                No steps yet — this is a rest day.
+              </p>
             )}
           </div>
         </div>
 
         {/* Footer */}
         <div className="p-6 pt-4 border-t border-blush/40 flex justify-end gap-3">
-          <button onClick={onClose} className="px-5 py-2 rounded-xl text-bark text-sm font-medium hover:bg-blush/40 transition-colors">Cancel</button>
+          <button
+            onClick={onClose}
+            className="px-5 py-2 rounded-xl text-bark text-sm font-medium hover:bg-blush/40 transition-colors"
+          >
+            Cancel
+          </button>
           <button
             onClick={() => onSave(routine)}
             className="px-6 py-2 rounded-xl bg-bark text-white text-sm font-medium hover:bg-bark/80 transition-colors"

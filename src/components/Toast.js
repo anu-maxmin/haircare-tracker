@@ -1,4 +1,4 @@
-// components/Toast.js
+// src/components/Toast.js
 import { useEffect, useState } from 'react';
 
 export default function Toast({ message, type = 'info', onDismiss }) {
@@ -20,7 +20,11 @@ export default function Toast({ message, type = 'info', onDismiss }) {
   };
 
   return (
-    <div className={`toast fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl shadow-xl text-sm font-medium flex items-center gap-2 max-w-xs ${colors[type]} ${!visible ? 'opacity-0 transition-opacity duration-400' : ''}`}>
+    <div
+      className={`toast fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl shadow-xl text-sm font-medium flex items-center gap-2 max-w-xs ${colors[type]} ${
+        !visible ? 'opacity-0 transition-opacity duration-400' : ''
+      }`}
+    >
       {type === 'success' && '✓ '}
       {type === 'error' && '✕ '}
       {type === 'info' && '🌿 '}

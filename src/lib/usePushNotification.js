@@ -1,4 +1,4 @@
-// lib/usePushNotification.js
+// src/lib/usePushNotification.js
 import { useState, useEffect } from 'react';
 
 export function usePushNotification() {
@@ -34,7 +34,6 @@ export function usePushNotification() {
       setSubscription(sub);
       setPermission('granted');
 
-      // Send subscription to server
       await fetch('/api/push/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,45 +48,39 @@ export function usePushNotification() {
     }
   }
 
-  // Local reminder using setTimeout — fires a browser notification if app is open,
-  // or via service worker if installed. For daily reminders at 8pm.
   function scheduleLocalReminder() {
     const now = new Date();
     const reminderHour = 20; // 8 PM
     const target = new Date();
     target.setHours(reminderHour, 0, 0, 0);
     if (target <= now) target.setDate(target.getDate() + 1);
-
     const delay = target - now;
 
     setTimeout(async () => {
-      // Check if today's routine is completed
       const todayKey = formatDate(new Date());
       const completions = JSON.parse(localStorage.getItem('haircare_completions') || '{}');
       const todayDone = completions[todayKey];
-
-      if (!todayDone || !todayDone.allDone) {
-        showLocalNotification();
-      }
-      // Re-schedule for tomorrow
+      if (!todayDone || !todayDone.allDone) showLocalNotification();
       scheduleLocalReminder();
     }, delay);
   }
 
   function showLocalNotification() {
     if (Notification.permission === 'granted') {
-      navigator.serviceWorker.ready.then((reg) => {
-        reg.showNotification('🌿 HairCare Reminder', {
-          body: "You haven't logged today's hair care routine yet!",
-          icon: '/icon-192.png',
-          tag: 'haircare-daily',
-          renotify: true,
+      navigator.serviceWorker.ready
+        .then(reg => {
+          reg.showNotification('🌿 HairCare Reminder', {
+            body: "You haven't logged today's hair care routine yet!",
+            icon: '/icon-192.png',
+            tag: 'haircare-daily',
+            renotify: true,
+          });
+        })
+        .catch(() => {
+          new Notification('🌿 HairCare Reminder', {
+            body: "You haven't logged today's hair care routine yet!",
+          });
         });
-      }).catch(() => {
-        new Notification('🌿 HairCare Reminder', {
-          body: "You haven't logged today's hair care routine yet!",
-        });
-      });
     }
   }
 
@@ -107,5 +100,5 @@ function urlBase64ToUint8Array(base64String) {
 
 function formatDate(date) {
   const d = new Date(date);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }

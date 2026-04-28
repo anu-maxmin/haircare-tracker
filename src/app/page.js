@@ -68,7 +68,7 @@ export default function Home() {
       await saveRoutine(newRoutine);
       setShowEditor(false);
       setEditingDayIdx(null);
-      showToast("Routine saved to database! ✓", "success");
+      showToast("Routine saved! ✓", "success");
     } catch {
       showToast("Could not save routine — check connection", "error");
     }
@@ -131,7 +131,6 @@ export default function Home() {
   // ─── Render ─────────────────────────────────────────────────────────────────
   if (!mounted) return null;
 
-  // DB connection error
   if (error) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center p-6">
@@ -158,7 +157,6 @@ export default function Home() {
     );
   }
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center">

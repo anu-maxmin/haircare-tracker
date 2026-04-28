@@ -1,26 +1,117 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap");
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* Fluid base font: 14px on small phones → 16px on desktop */
+  font-size: clamp(14px, 1.5vw + 10px, 16px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #faf6f1;
+  font-family: "DM Sans", sans-serif;
+  color: #2c2c2c;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --cream: #faf6f1;
+  --mink: #c4a882;
+  --bark: #8b6f4e;
+  --moss: #5c6b4a;
+  --blush: #e8c5b0;
+  --charcoal: #2c2c2c;
+  --sage: #a3b899;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #faf6f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c4a882;
+  border-radius: 3px;
+}
+
+/* Calendar day hover */
+.cal-day {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cal-day:hover {
+  background-color: #e8c5b0;
+  transform: scale(1.05);
+}
+
+/* Checkbox — scales with font size */
+.custom-check {
+  appearance: none;
+  width: clamp(16px, 4vw, 20px);
+  height: clamp(16px, 4vw, 20px);
+  border: 2px solid #c4a882;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.custom-check:checked {
+  background-color: #5c6b4a;
+  border-color: #5c6b4a;
+}
+.custom-check:checked::after {
+  content: "✓";
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: white;
+  font-size: clamp(11px, 2.5vw, 14px);
+  font-weight: bold;
+}
+
+/* Toast notification */
+.toast {
+  animation:
+    slideIn 0.4s ease,
+    fadeOut 0.4s ease 3.6s forwards;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%) translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Tap highlight removal on mobile */
+button,
+label,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text size adjustment on orientation change */
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }

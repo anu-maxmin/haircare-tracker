@@ -1,4 +1,4 @@
-// components/Calendar.js
+// src/components/Calendar.js
 import { useState } from 'react';
 import { MONTHS, SHORT_DAYS, formatDate, getRoutineDayIndex } from '../lib/utils';
 
@@ -28,11 +28,21 @@ export default function Calendar({ routineStartDate, completions, onSelectDate, 
     <div className="bg-white rounded-2xl shadow-sm border border-blush/40 p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <button onClick={prevMonth} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-blush/40 transition-colors text-bark font-bold">‹</button>
+        <button
+          onClick={prevMonth}
+          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-blush/40 transition-colors text-bark font-bold"
+        >
+          ‹
+        </button>
         <h2 className="font-display text-xl text-charcoal font-semibold">
           {MONTHS[viewMonth]} {viewYear}
         </h2>
-        <button onClick={nextMonth} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-blush/40 transition-colors text-bark font-bold">›</button>
+        <button
+          onClick={nextMonth}
+          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-blush/40 transition-colors text-bark font-bold"
+        >
+          ›
+        </button>
       </div>
 
       {/* Day labels */}
@@ -55,7 +65,8 @@ export default function Calendar({ routineStartDate, completions, onSelectDate, 
           const hasRoutine = routineIdx !== null;
           const completion = completions[dateKey];
           const isDone = completion?.allDone;
-          const isPartial = completion && !completion.allDone && Object.values(completion.steps || {}).some(Boolean);
+          const isPartial =
+            completion && !completion.allDone && Object.values(completion.steps || {}).some(Boolean);
           const isFuture = dateObj > today;
 
           return (
@@ -73,9 +84,11 @@ export default function Calendar({ routineStartDate, completions, onSelectDate, 
               {day}
               {/* Completion dot */}
               {hasRoutine && !isFuture && (
-                <span className={`absolute bottom-1 w-1.5 h-1.5 rounded-full ${
-                  isDone ? 'bg-moss' : isPartial ? 'bg-mink' : 'bg-charcoal/20'
-                }`} />
+                <span
+                  className={`absolute bottom-1 w-1.5 h-1.5 rounded-full ${
+                    isDone ? 'bg-moss' : isPartial ? 'bg-mink' : 'bg-charcoal/20'
+                  }`}
+                />
               )}
             </button>
           );
@@ -84,9 +97,18 @@ export default function Calendar({ routineStartDate, completions, onSelectDate, 
 
       {/* Legend */}
       <div className="flex items-center gap-4 mt-4 pt-4 border-t border-blush/30 text-xs text-bark/70">
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-moss inline-block"/>Completed</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-mink inline-block"/>Partial</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-charcoal/20 inline-block"/>Pending</span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-moss inline-block" />
+          Completed
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-mink inline-block" />
+          Partial
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-charcoal/20 inline-block" />
+          Pending
+        </span>
       </div>
     </div>
   );

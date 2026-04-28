@@ -1,8 +1,14 @@
-// components/DayDetail.js
-import { useState, useEffect } from 'react';
+// src/components/DayDetail.js
 import { MONTHS, DAYS, getRoutineDayIndex, formatDate } from '../lib/utils';
 
-export default function DayDetail({ dateKey, weeklyRoutine, routineStartDate, completions, onUpdateCompletion, onEditDay }) {
+export default function DayDetail({
+  dateKey,
+  weeklyRoutine,
+  routineStartDate,
+  completions,
+  onUpdateCompletion,
+  onEditDay,
+}) {
   const date = new Date(dateKey + 'T00:00:00');
   const dayName = DAYS[date.getDay()];
   const routineIdx = getRoutineDayIndex(date, routineStartDate);
@@ -14,7 +20,8 @@ export default function DayDetail({ dateKey, weeklyRoutine, routineStartDate, co
   function toggleStep(stepId) {
     if (isFuture) return;
     const newSteps = { ...completion.steps, [stepId]: !completion.steps[stepId] };
-    const allDone = dayRoutine?.steps.length > 0 && dayRoutine.steps.every(s => newSteps[s.id]);
+    const allDone =
+      dayRoutine?.steps.length > 0 && dayRoutine.steps.every(s => newSteps[s.id]);
     onUpdateCompletion(dateKey, { steps: newSteps, allDone });
   }
 
@@ -53,7 +60,11 @@ export default function DayDetail({ dateKey, weeklyRoutine, routineStartDate, co
             <h2 className="font-display text-2xl font-semibold mt-0.5">
               {date.getDate()} {MONTHS[date.getMonth()]}
             </h2>
-            {isFuture && <span className="text-xs bg-white/20 rounded-full px-2 py-0.5 mt-2 inline-block">Upcoming</span>}
+            {isFuture && (
+              <span className="text-xs bg-white/20 rounded-full px-2 py-0.5 mt-2 inline-block">
+                Upcoming
+              </span>
+            )}
           </div>
           <button
             onClick={() => onEditDay(routineIdx)}
@@ -89,13 +100,15 @@ export default function DayDetail({ dateKey, weeklyRoutine, routineStartDate, co
           </div>
         ) : (
           <div className="space-y-3">
-            {dayRoutine.steps.map((step, idx) => {
+            {dayRoutine.steps.map(step => {
               const done = !!completion.steps[step.id];
               return (
                 <label
                   key={step.id}
                   className={`flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-all ${
-                    done ? 'bg-sage/20 border border-moss/30' : 'bg-cream border border-blush/30 hover:border-mink/40'
+                    done
+                      ? 'bg-sage/20 border border-moss/30'
+                      : 'bg-cream border border-blush/30 hover:border-mink/40'
                   } ${isFuture ? 'opacity-60 pointer-events-none' : ''}`}
                 >
                   <input
@@ -104,7 +117,11 @@ export default function DayDetail({ dateKey, weeklyRoutine, routineStartDate, co
                     checked={done}
                     onChange={() => toggleStep(step.id)}
                   />
-                  <span className={`text-sm leading-relaxed ${done ? 'text-bark/60 line-through' : 'text-charcoal'}`}>
+                  <span
+                    className={`text-sm leading-relaxed ${
+                      done ? 'text-bark/60 line-through' : 'text-charcoal'
+                    }`}
+                  >
                     {step.text}
                   </span>
                 </label>

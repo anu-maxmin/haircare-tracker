@@ -1,0 +1,21 @@
+{
+  "name": "HairCare Routine Tracker",
+  "short_name": "HairCare",
+  "description": "Track your weekly hair care routine",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF6F1",
+  "theme_color": "#8B6F4E",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

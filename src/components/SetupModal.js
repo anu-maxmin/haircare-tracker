@@ -1,4 +1,4 @@
-// components/SetupModal.js
+// src/components/SetupModal.js
 import { useState } from 'react';
 import { formatDate } from '../lib/utils';
 
@@ -16,7 +16,9 @@ export default function SetupModal({ onComplete }) {
         </p>
 
         <div className="text-left mb-6">
-          <label className="block text-sm font-semibold text-bark mb-2">Routine Start Date</label>
+          <label className="block text-sm font-semibold text-bark mb-2">
+            Routine Start Date
+          </label>
           <input
             type="date"
             value={startDate}
